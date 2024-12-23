@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { User } from './models/identity/User';
+import { AccountService } from './services/AccountService.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,27 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'pactosolucoes-app';
+
+  constructor(public accountService: AccountService) {}
+
+  // tslint:disable-next-line:use-lifecycle-interface
+  ngOnInit(): void {
+    this.setCurrentUser();
+  }
+
+  setCurrentUser(): void {
+    let user: User;
+
+    if (localStorage.getItem('user')) {
+      user = JSON.parse(localStorage.getItem('user') ?? '{}');
+    }
+    else {
+      user = null as any;
+    }
+
+    if (user) {
+      this.accountService.setCurrentUser(user);
+    }
+  }
+
 }
