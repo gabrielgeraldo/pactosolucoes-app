@@ -35,13 +35,11 @@ export class RegistrationComponent implements OnInit {
     };
 
     this.form = this.fb.group({
-      primeiroNome: ['', Validators.required],
-      ultimoNome: ['', Validators.required],
+      nome: ['', Validators.required],
       email: ['',
         [Validators.required, Validators.email]
       ],
-      userName: ['', Validators.required],
-      password: ['',
+      senha: ['',
         [Validators.required, Validators.minLength(4)]
       ],
       confirmePassword: ['', Validators.required],
@@ -50,6 +48,7 @@ export class RegistrationComponent implements OnInit {
 
   register(): void {
     this.user = { ...this.form.value };
+    console.log(this.user);
     this.accountService.register(this.user).subscribe(
       () => this.router.navigateByUrl('/dashboard'),
       (error: any) => this.toaster.error(error.error)

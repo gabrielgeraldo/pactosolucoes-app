@@ -11,12 +11,12 @@ export class AccountService {
   private currentUserSource = new ReplaySubject<User>(1);
   public currentUser$ = this.currentUserSource.asObservable();
 
-  baseUrl = environment.apiURL + 'api/usuarios/';
+  baseUrl = environment.apiURL + 'api/usuarios';
 
   constructor(private http: HttpClient) { }
 
   public login(model: any): Observable<void> {
-    return this.http.post<User>(this.baseUrl + 'autenticar', model).pipe(
+    return this.http.post<User>(this.baseUrl + '/autenticar', model).pipe(
       take(1),
       map((response: User) => {
         const user = response;
@@ -32,11 +32,9 @@ export class AccountService {
   }
 
   public register(model: any): Observable<void> {
-    console.log('responseeeeeeeee');
     return this.http.post<User>(this.baseUrl, model).pipe(
       take(1),
       map((response: User) => {
-        console.log('responseeeeeeeee');
         console.log(response);
         const user = response;
         if (user) {
