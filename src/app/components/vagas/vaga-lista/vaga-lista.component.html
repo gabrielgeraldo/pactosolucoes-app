@@ -1,3 +1,82 @@
-<p>
-  vaga-lista works!
-</p>
+<div class="card rounded shadow-sm p-3">
+
+  <div class="d-flex">
+      <div>
+        <div class="form-group mb-2">
+          <div class="flex-fill pr-3">
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text">Filtro: </div>
+              </div>
+              <input
+              type="text"
+              class="form-control"
+              placeholder="Filtrar por Tema e Local">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <a class="d-flex btn btn-primary" routerLink="/vagas/detalhe">
+          <i class="fa fa-plus-circle my-1"></i>
+          <b class="ml-1 d-none d-sm-block">Novo</b>
+        </a>
+      </div>
+  
+  </div>
+  
+  <!-- <h3>Filtro: {{filtroLista}}</h3> -->
+  <table class="table table-striped shadow-sm table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th>#</th>
+        <th class="d-none d-md-table-cell">Título</th>
+        <th class="d-none d-md-table-cell">Descrição</th>
+        <th>Opções</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="vagas && vagas.length">
+      <tr *ngFor="let vaga of vagas" (click)="detalheVaga(vaga.id)" style="cursor: pointer;">
+        
+        <td>{{vaga.id}}</td>
+        <td>{{vaga.titulo}}</td>
+        <td>{{vaga.descricao}}</td>
+
+        <td>
+          <button type="button" class="btn btn-danger btn-sm" (click)="openModal($event, template, vaga.id)">
+            <i class="fa fa-trash"></i>
+            <b class="ml-1 d-none d-sm-block">Excluir</b>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot *ngIf="!vagas.length">
+      <tr>
+        <td colspan="8" class="text-center">
+          <h4>Nenhuma vaga encontrada!</h4>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+  
+  <div class="d-flex justify-content-center">
+
+  
+  </div>
+  
+  <!-- {{vagas | json}} -->
+  
+  </div>
+  
+  <br/>
+  
+  <ng-template #template>
+    <div class="modal-body text-center">
+      <p>Tem certeza que quer deletar o Evento de Código {{this.eventoId}}?</p>
+      <button type="button" class="btn btn-default" (click)="confirm()" >Sim</button>
+      <button type="button" class="btn btn-primary" (click)="decline()" >Não</button>
+    </div>
+  </ng-template>
+  
+  
+  

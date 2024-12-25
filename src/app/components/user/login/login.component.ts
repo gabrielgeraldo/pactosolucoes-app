@@ -26,12 +26,13 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl('/dashboard');
       },
       (error: any) => {
-        if (error.status === 401){
+        /*if (error.status === 401){
           this.toaster.error('usuário ou senha inválido');
         }
         else {
           console.error(error);
-        }
+        }*/
+        this.toaster.error('usuário ou senha inválido');
       }
     );
   }

@@ -1,3 +1,47 @@
-<p>
-  vaga-detalhe works!
-</p>
+<div class="row">
+  <div [ngClass]="{'col-md-8 pr-0': modoEditar, 'col-md-12': !modoEditar}">
+    <div class="card rounded shadow-sm">
+      <form [formGroup]="form">
+        <div class="p-3">
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label>Título</label>
+              <input type="text" class="form-control" [ngClass]="cssValidator(f.titulo)" formControlName="titulo"
+              placeholder="Insira o Título" [(ngModel)]="vaga.titulo">
+              <div *ngIf="f.titulo.errors?.required" class="invalid-feedback">
+                Título é obrigatório.
+              </div>
+              <div *ngIf="f.titulo.errors?.minlength" class="invalid-feedback">
+                Título deve ter no mínimo 4 caracteres.
+              </div>
+              <div *ngIf="f.titulo.errors?.maxlength" class="invalid-feedback">
+                Título deve ter no máximo 50 caracteres.
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-8">
+              <label>Descrição</label>
+              <input type="text" class="form-control" [ngClass]="cssValidator(f.descricao)"
+              formControlName="descricao" placeholder="" [(ngModel)]="vaga.descricao">
+              <div *ngIf="f.descricao.errors?.required && f.descricao.touched" class="invalid-feedback">
+                Descrição é obrigatório.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="d-flex">
+            <button class="btn btn-outline-secondary mr-auto border" (click)="resetForm()">
+              Cancelar Alteração
+            </button>
+            <button class="btn btn-success" [disabled]="!form.valid" (click)="salvarVaga()">
+              <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
+              Salvar Vaga
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+<br>
+
